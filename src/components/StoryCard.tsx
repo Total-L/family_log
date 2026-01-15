@@ -28,7 +28,7 @@ export default function StoryCard({ story }: StoryCardProps) {
                 </div>
             </div>
 
-            {story.title && <h4 className="text-xl font-bold mb-2">{story.title}</h4>}
+
 
             <p className="text-lg whitespace-pre-wrap mb-4 leading-relaxed">
                 {story.content}
