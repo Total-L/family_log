@@ -7,7 +7,7 @@ import StoryCard from '@/components/StoryCard';
 import Link from 'next/link';
 
 export default function Home() {
-  const { user, family, logout, isLoading, stories } = useAuth();
+  const { user, family, signOut, isLoading, stories } = useAuth();
   const router = useRouter();
 
   // Auth check handled in Context, but extra safety or loading state
@@ -21,7 +21,7 @@ export default function Home() {
         <div className="flex justify-between items-center mb-2">
           <h1 className="text-2xl font-bold text-[var(--color-primary)] m-0">{family.name}</h1>
           <button
-            onClick={logout}
+            onClick={signOut}
             className="text-sm bg-stone-100 text-stone-600 px-3 py-1 rounded-lg hover:bg-stone-200"
           >
             退出
