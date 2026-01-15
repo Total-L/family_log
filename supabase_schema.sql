@@ -33,15 +33,8 @@ create table profiles (
 
 alter table profiles enable row level security;
 
-create policy "Users can read members of their own family." on profiles
-  for select using (
-    exists (
-      select 1 from profiles my_profile 
-      where my_profile.id = auth.uid() 
-      and my_profile.family_id = profiles.family_id
-    )
-    or auth.uid() = id -- Can always read self
-  );
+create policy "Users can read all profiles" on profiles
+  for select using (auth.role() = 'authenticated');
 
 create policy "Users can update own profile." on profiles
   for update using (auth.uid() = id);
