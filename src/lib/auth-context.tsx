@@ -136,7 +136,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             router.replace('/login');
         } else if (user && !family && !isOnboarding) {
             router.replace('/onboarding');
-        } else if (user && family && isAuthPage) {
+        } else if (user && family && (isAuthPage || isOnboarding)) {
             router.replace('/');
         }
     }, [user, family, isLoading, pathname, router]);
