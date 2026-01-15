@@ -1,31 +1,28 @@
-export type UserRole = 'senior' | 'family';
+export type UserRole = 'senior' | 'family' | 'member';
+
+export interface Family {
+  id: string;
+  name: string;
+  inviteCode: string;
+}
 
 export interface User {
-  id: string;
+  id: string; // Auth User ID
   name: string;
   avatar?: string;
   role: UserRole;
-  bio?: string;
+  familyId?: string; // Optional because user might be logged in but not in a family yet
+  email?: string;
 }
 
 export interface Story {
   id: string;
   authorId: string;
-  authorName: string; // Denormalized for simpler MVP
-  authorAvatar?: string;
-  title?: string; // Optional, might just be a date or thought
-  content: string; // Text transcript or description
-  audioUrl?: string; // Voice memoir
-  imageUrls: string[]; // Photo bank
-  likes: number;
-  createdAt: string; // ISO String
-}
-
-export interface Comment {
-  id: string;
-  storyId: string;
-  authorId: string;
+  familyId: string;
   authorName: string;
+  authorAvatar?: string;
   content: string;
+  imageUrls: string[];
+  likes: number;
   createdAt: string;
 }

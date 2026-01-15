@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
 import { useRouter } from 'next/navigation';
-import { Story } from '@/lib/types';
 
 export default function NewMemoryPage() {
     const { user, addStory } = useAuth();
@@ -16,21 +15,11 @@ export default function NewMemoryPage() {
         return null;
     }
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!content.trim()) return;
 
-        const newStory: Story = {
-            id: Date.now().toString(), // Temp ID, will be replaced by DB
-            authorId: user.id,
-            authorName: user.name,
-            authorAvatar: user.avatar,
-            content: content,
-            imageUrls: [],
-            likes: 0,
-            createdAt: new Date().toISOString(),
-        };
-
-        addStory(newStory);
+        // Use Context to save. No need to pass full object as Context knows User/Family.
+        await addStory(content, []);
         router.push('/');
     };
 

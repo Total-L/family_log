@@ -7,31 +7,30 @@ import StoryCard from '@/components/StoryCard';
 import Link from 'next/link';
 
 export default function Home() {
-  const { user, logout, isLoading, stories } = useAuth();
+  const { user, family, logout, isLoading, stories } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.replace('/login');
-    }
-  }, [user, isLoading, router]);
-
-  if (!user) return null;
+  // Auth check handled in Context, but extra safety or loading state
+  if (isLoading) return null;
+  if (!user || !family) return null;
 
   return (
     <main className="min-h-screen bg-[var(--color-background)]">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-[var(--color-background)]/95 backdrop-blur-md shadow-sm px-4 py-4 flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-bold text-[var(--color-primary)] m-0">亲情时光</h1>
-          <p className="text-sm text-stone-500">下午好, {user.name}</p>
+      <header className="sticky top-0 z-10 bg-[var(--color-background)]/95 backdrop-blur-md shadow-sm px-4 py-4">
+        <div className="flex justify-between items-center mb-2">
+          <h1 className="text-2xl font-bold text-[var(--color-primary)] m-0">{family.name}</h1>
+          <button
+            onClick={logout}
+            className="text-sm bg-stone-100 text-stone-600 px-3 py-1 rounded-lg hover:bg-stone-200"
+          >
+            退出
+          </button>
         </div>
-        <button
-          onClick={logout}
-          className="text-sm bg-stone-100 text-stone-600 px-3 py-1 rounded-lg hover:bg-stone-200"
-        >
-          退出
-        </button>
+        <div className="flex justify-between items-center text-sm text-stone-500">
+          <p>👋 下午好, {user.name}</p>
+          <p className="bg-orange-100 text-orange-800 px-2 py-0.5 rounded">邀请码: <span className="font-bold select-all">{family.inviteCode}</span></p>
+        </div>
       </header>
 
       {/* Timeline */}
