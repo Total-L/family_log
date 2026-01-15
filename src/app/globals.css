@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #d97706; /* Amber 600 */
+  --color-primary-foreground: #ffffff;
+  --color-background: #fdfbf7; /* Warm white/cream */
+  --color-surface: #ffffff;
+  --color-text-main: #1c1917; /* Stone 900 */
+  --color-text-muted: #57534e; /* Stone 600 */
+  
+  --font-family-sans: " system-ui, -apple-system, sans-serif";
+}
+
+/* Custom Utilities for Elderly Accessibility */
+@layer base {
+  html {
+    @apply text-[18px] leading-relaxed text-[var(--color-text-main)] bg-[var(--color-background)];
+  }
+
+  h1 {
+    @apply text-3xl font-bold mb-4 text-[var(--color-primary)];
+  }
+
+  h2 {
+    @apply text-2xl font-bold mb-3;
+  }
+  
+  button {
+    @apply active:scale-95 transition-transform;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--color-primary)] text-[var(--color-primary-foreground)] px-6 py-3 rounded-xl font-bold shadow-md hover:bg-[#b45309];
+  }
+  
+  .card {
+    @apply bg-[var(--color-surface)] p-5 rounded-2xl shadow-sm border border-[#e7e5e4];
+  }
+}
